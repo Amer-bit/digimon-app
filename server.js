@@ -26,6 +26,7 @@ app.get("/", favouriteHandler);
 app.post("/addfav", addCharHandler);
 app.delete('/deletechar/:charid', deleteHandler);
 app.put('/updatechar/:charid', updateHandler);
+app.get('/detail', detailHandler)
 
 /////////////////////// Routes Handlers \\\\\\\\\\\\\\\\\\\\
 
@@ -70,12 +71,20 @@ function updateHandler(req, res) {
     const safeValues = [name,img, level,charId];
     client.query(SQL, safeValues)
     .then(data => {
-        res.redirect('/char')
+        res.redirect('/')
     })
     .catch((error)=> {
         errorHandler(req, res, error)
     })
     
+}
+
+function detailHandler(req, res ) {
+    SQL = `SELECT * FROM addfav`
+    client.query(SQL)
+    .then(data => {
+        res.render('detail', {data : data.rows})
+    })
 }
 
 
