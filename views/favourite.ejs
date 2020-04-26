@@ -1,16 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Favourite Page</title>
 </head>
+
 <body>
-    <% favchar.forEach ( value => {%>
-        <h1><%= value.name %> </h1>
-        <img src="<%= value.img %> ">
-        <%= value.level %>
-        <a href="/addfav" > Add To Favourite</a>
-    <%}) %> 
+    <header>
+        <h1>Favourite Page</h1>
+    </header>
+
+    <% dbChar.forEach (value => {%>
+
+    <h2><%= value.name %> </h2>
+    <img src="<%= value.img %>">
+    <p><%= value.level %></p>
+
+    <form action="/deletechar/<%= value.id %>?_method=DELETE " method="post">
+        <button type="submit">Delete this charachter</button>
+    </form>
+
+    <button type="submit" class="togglebtn"> Update Charachter</button>
+
+    <form action="/updatechar/<%= value.id %>?_method=PUT" method="post" class="toggleform">
+        <input type="text" name="name" value="<%= value.name %>" placeholder="<%= value.name %>"><br>
+        <input type="text" name="img" value="<%= value.img %>" placeholder="img URL"><br>
+        <input type="text" name="level" value="<%= value.level %>" placeholder="<%= value.level %>"><br>
+        <button type="submit"> Update</button>
+    </form>
+
+    <% }) %>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.js"></script>
+<script>
+    $(document).ready(() => {
+        $('.toggleform').hide()
+        $('.togglebtn').on('click', () => {
+            $('.toggleform').toggle()
+            location.reload();
+        })
+    })
+
+</script>
+
 </html>

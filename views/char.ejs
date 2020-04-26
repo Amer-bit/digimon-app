@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charachters Page</title>
+</head>
+<header>
+    <h1>Charachters Page</h1>
+</header>
+
+<body>
+    <% favchar.forEach ( value => {%>
+        <h2><%= value.name %> </h2>
+        <img src="<%= value.img %> ">
+       <p><%= value.level %></p> 
+
+        <form action="/addfav" method="POST">
+            <input type="hidden" name="name" value="<%= value.name %> >">
+            <input type="hidden" name="img" value="<%= value.img %>  ">
+            <input type="hidden" name="level" value="<%= value.level %> ">
+            <button type="submit">Add to Favourite</button>
+        </form>
+
+    <%}) %> 
+</body>
+</html>
